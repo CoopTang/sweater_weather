@@ -2,15 +2,12 @@ require 'rails_helper'
 
 RSpec.describe GeocoderService do
   it 'Can get the lat and long coordinates of a given location', :vcr do
-    location = 'Denver, CO'
-    expected_coordinate = {
-      lat: 39.7392358,
-      lng: -104.990251
-    }
+    location = 'denver,co'
 
-    coordinate = GeocoderService.get_lat_long(location)
+    response = GeocoderService.get_geocoding(location)
 
-    expect(coordinate.latitude).to eq(args[:lat])
-    expect(coordinate.longitude).to eq(args[:lng])
+    expect(response[:results][0][:geometry]).to have_key(:location)
+    expect(response[:results][0][:geometry][:location]).to have_key(:lat)
+    expect(response[:results][0][:geometry][:location]).to have_key(:lng)
   end
 end
