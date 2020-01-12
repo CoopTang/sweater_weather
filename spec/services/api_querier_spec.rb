@@ -14,8 +14,8 @@ RSpec.describe 'ApiQuerier' do
       params
     )
 
-    expect(response[:results][0][:geometry]).to have_key(:viewport)
-    expect(response[:results][0][:geometry][:viewport]).to have_key(:northeast)
-    expect(response[:results][0][:geometry][:viewport]).to have_key(:southwest)
+    expect(response[:results][0][:geometry]).to have_key(:location)
+    expect(response[:results][0][:geometry][:location]).to have_key(:lat)
+    expect(response[:results][0][:geometry][:location]).to have_key(:lng)
   end
 end
