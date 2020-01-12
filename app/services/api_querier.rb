@@ -1,5 +1,5 @@
 class ApiQuerier
-  def self.query_api(url, path, options)
+  def self.query_api(url, path, options = {})
     response = connect(url, options).get(path)
     JSON.parse(response.body, symbolize_names: true)
   end
