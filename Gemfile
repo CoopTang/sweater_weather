@@ -10,6 +10,7 @@ gem 'puma', '~> 3.11'
 
 gem 'bootsnap', '>= 1.1.0', require: false
 
+gem 'factory_bot_rails'
 gem 'faraday'
 gem 'figaro'
 
@@ -23,6 +24,8 @@ group :development, :test do
   gem 'capybara'
   gem 'vcr'
   gem 'webmock'
+  gem 'database_cleaner'
+  gem 'rspec-rails'
 end
 
 group :development do
