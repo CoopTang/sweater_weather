@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe AmycodeService do
+RSpec.describe AmypodeService do
   it 'Can get weather of a given latitude and longitude location', :vcr do
     location = GeoCoordinate.new({ lat: 22.3193039, lng: 114.1693611 })
 
