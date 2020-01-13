@@ -1,4 +1,4 @@
-class AmycodeService
+class AmypodeService
 
   def self.get_antipode(location)
     response = ApiQuerier.query_api(
