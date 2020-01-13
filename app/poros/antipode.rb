@@ -5,6 +5,7 @@ class Antipode
               :search_location
 
   def initialize(args)
+    binding.pry
     @id = args[:id]
     @location_name = args[:location_name]
     @forecast = args[:forecast]

@@ -10,13 +10,19 @@ class AntipodeFacade
   private
 
   def get_antipodes(location)
-    geocoding           = GeocodeService.get_geocoding(location)
-    start_geocoordinate = GeoCoordinate.new(geocoding[:results][0][:geometry])
+    geocoding           = GeocoderService.get_geocoding(location)[:results][0]
+    start_geocoordinate = GeoCoordinate.new(geocoding[:geometry][:location])
 
-    antipode               = Amypode.get_antipode(start_geocoordinate)
-    antipode_geocoordinate = GeoCoordinate.new(antipode[:results][:attributes])
+    antipode               = AmypodeService.get_antipode(start_geocoordinate)
+    coord = {
+      lat: antipode[:data][:attributes][:lat],
+      lng: antipode[:data][:attributes][:long] 
+    }
+    antipode_geocoordinate = GeoCoordinate.new(coord)
 
-    locations_d = GeocodeService.get_reverse_geocoding(antipode_geocoordinate)
+
+    binding.pry
+    locations_d = GeocoderService.get_reverse_geocoding(antipode_geocoordinate)
     i = 1
     locations_d[:results].each do |location_d|
       geocoordinate = GeoCoordinate.new(location_d[:geometry][:location])
