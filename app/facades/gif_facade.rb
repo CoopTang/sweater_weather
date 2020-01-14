@@ -1,9 +1,10 @@
 class GifFacade 
-  attr_reader :images
+  attr_reader :id, :images, :copyright
 
   def initialize(location)
     @id = 1
     @images = []
+    @copyright = "2019"
     get_images(location)
   end
 
@@ -27,8 +28,8 @@ class GifFacade
     hourly_forecast[:data].each do |hour_data|
       summary = hour_data[:summary]
       time    = hour_data[:time]
-      gif_url = GiphyService.get_gif(hour_data[:summary]).first[:url]
-      images.push({ time: time, summary: summary, url: gif_url })
+      gif_url = GiphyService.search_gifs(summary)[:data].sample[:url]
+      images.push(Gif.new({ time: time, summary: summary, url: gif_url }))
     end
   end
 end

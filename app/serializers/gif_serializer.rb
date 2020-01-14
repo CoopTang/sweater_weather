@@ -1,4 +1,4 @@
 class GifSerializer
   include FastJsonapi::ObjectSerializer
-  attributes :id, :images
+  attributes :id, :images, :copyright
 end
