@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'Gifs Show:' do
   describe 'When I make a get request to /api/v1/gifs?<location>' do
-    it '; It returns a response with the following parameters' do
+    it '; It returns a response with the following parameters', :vcr do
       get '/api/v1/gifs?location=denver,co'
 
       response = JSON.parse(@response.body)
