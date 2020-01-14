@@ -7,26 +7,26 @@ describe 'Forecast Show:', type: :request do
 
       response = JSON.parse(@response.body, symbolize_names: true)[:data][:attributes]
 
-      expect(response[:current_weather]).to have_key(:time)
-      expect(response[:current_weather]).to have_key(:summary)
-      expect(response[:current_weather]).to have_key(:icon)
-      expect(response[:current_weather]).to have_key(:temperature)
-      expect(response[:current_weather]).to have_key(:apparentTemperature)
-      expect(response[:current_weather]).to have_key(:humidity)
-      expect(response[:current_weather]).to have_key(:visibility)
-      expect(response[:current_weather]).to have_key(:uvIndex)
+      expect(response[:currently]).to have_key(:time)
+      expect(response[:currently]).to have_key(:summary)
+      expect(response[:currently]).to have_key(:icon)
+      expect(response[:currently]).to have_key(:temperature)
+      expect(response[:currently]).to have_key(:apparent_temperature)
+      expect(response[:currently]).to have_key(:humidity)
+      expect(response[:currently]).to have_key(:visibility)
+      expect(response[:currently]).to have_key(:uv_index)
     
-      expect(response[:hourly_weather].length).to eq(49)
-      expect(response[:hourly_weather].first).to have_key(:time)
-      expect(response[:hourly_weather].first).to have_key(:summary)
-      expect(response[:hourly_weather].first).to have_key(:icon)
-      expect(response[:hourly_weather].first).to have_key(:temperature)
+      expect(response[:hourly].length).to eq(49)
+      expect(response[:hourly].first).to have_key(:time)
+      expect(response[:hourly].first).to have_key(:summary)
+      expect(response[:hourly].first).to have_key(:icon)
+      expect(response[:hourly].first).to have_key(:temperature)
     
-      expect(response[:daily_weather].length).to eq(8)
-      expect(response[:daily_weather].first).to have_key(:temperatureLow)
-      expect(response[:daily_weather].first).to have_key(:temperatureHigh)
-      expect(response[:daily_weather].first).to have_key(:precipProbability)
-      expect(response[:daily_weather].first).to have_key(:precipType)
+      expect(response[:daily].length).to eq(8)
+      expect(response[:daily].first).to have_key(:temperature_low)
+      expect(response[:daily].first).to have_key(:temperature_high)
+      expect(response[:daily].first).to have_key(:precip_probability)
+      expect(response[:daily].first).to have_key(:precip_type)
     end
   end
 end
