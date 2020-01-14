@@ -1,4 +1,4 @@
-class Forecast
+class ForecastFacade
   attr_reader :timezone,
               :currently,
               :hourly,
