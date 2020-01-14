@@ -7,7 +7,7 @@ class Api::V1::Users::UsersController < ApplicationController
     if user.save
       render json: { api_key: user.api_key }
     else
-      render json: { message: user.errors.full_messages.to_sentence }
+      render json: { message: user.errors.full_messages.to_sentence }, status: 400
     end
   end
   

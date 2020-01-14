@@ -32,7 +32,8 @@ describe 'User Create:', type: :request do
       }
       
       response = JSON.parse(@response.body, symbolize_names: true)
-      
+
+      expect(@response.status).to eq(400)
       expect(response[:message]).to eq("Password confirmation doesn't match Password and Email has already been taken")
     end
   end
