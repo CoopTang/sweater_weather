@@ -12,7 +12,12 @@ class ApiQuerier
         options[:params].each do |key, val|
           faraday.params[key] = val
         end
-      end 
+      end
+      if options[:headers]
+        options[:headers].each do |key, val|
+          faraday.headers[key] = val
+        end
+      end
       faraday.adapter Faraday.default_adapter
     end
   end
