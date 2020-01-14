@@ -7,6 +7,8 @@ Rails.application.routes.draw do
         resources :users, only: :create
         resources :sessions, only: :create
       end
+
+      resource :gifs, only: :show
     end
   end
 end
