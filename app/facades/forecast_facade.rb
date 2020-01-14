@@ -1,13 +1,11 @@
 class ForecastFacade
-  attr_reader :timezone,
-              :currently,
+  attr_reader :currently,
               :hourly,
               :daily,
               :id
 
   def initialize(location)
     @id        = 1
-    @timezone  = ""
     @currently = {}
     @hourly    = []
     @daily     = []
@@ -27,31 +25,24 @@ class ForecastFacade
   end
 
   def parse_forecast(forecast)
-    @timezone = forecast[:timezone]
-    @currently = Currently.new(forecast[:currently])
-    forecast[:hourly][:data].each do |hour|
-      @hourly.push(parse_hourly(hour))
-    end
-    forecast[:daily][:data].each do |day|
-      @daily.push(parse_daily(day))
+    create_currently(forecast[:currently])
+    create_hourly(forecast[:hourly])
+    create_daily(forecast[:daily])
+  end
+  
+  def create_currently(currently_forecast)
+    @currently = Currently.new(currently_forecast)
+  end
+  
+  def create_hourly(hourly_forecast)
+    hourly_forecast[:data].each do |hour_data|
+      @hourly.push(Hourly.new(hour_data))
     end
   end
-
-  def parse_hourly(hourly)
-    hourly.slice(
-      :time,
-      :summary,
-      :icon,
-      :temperature
-    )
-  end
-
-  def parse_daily(daily)
-    daily.slice(
-      :temperatureLow,
-      :temperatureHigh,
-      :precipProbability,
-      :precipType
-    )
+  
+  def create_daily(daily_forecast)
+    daily_forecast[:data].each do |day_data|
+      @daily.push(Daily.new(day_data))
+    end
   end
 end
