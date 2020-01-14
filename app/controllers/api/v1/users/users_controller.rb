@@ -1,13 +1,13 @@
 require 'securerandom'
-class Api::V1::Users::UsersController < ApplicationController
+class Api::V1::Users::UsersController < Api::V1::Users::BaseController
   before_action :set_headers
 
   def create
     user = User.new(user_params)
     if user.save
-      render json: { api_key: user.api_key }
+      render json: { api_key: user.api_key }, status: 201
     else
-      render json: { message: user.errors.full_messages.to_sentence }, status: 400
+      render json: { message: errors(user) }, status: 400
     end
   end
   
@@ -25,5 +25,9 @@ class Api::V1::Users::UsersController < ApplicationController
   def set_headers
     response.set_header('Content-Type', 'application/json')
     response.set_header('Accept', 'application/json')
+  end
+
+  def errors(user)
+    user.errors.full_messages.to_sentence
   end
 end
