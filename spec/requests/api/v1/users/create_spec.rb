@@ -14,6 +14,7 @@ describe 'User Create:', type: :request do
       
       response = JSON.parse(@response.body, symbolize_names: true)
       
+      expect(@response.status).to eq(201)
       expect(response[:api_key]).to eq(api_key)
     end
 
