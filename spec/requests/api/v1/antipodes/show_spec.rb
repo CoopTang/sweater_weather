@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'Antipode Show:', type: :request do
   describe 'When I visit the api endpoint for /antipode with a city and state' do
-    it 'should give me the weather information for that antipode of a given location' do
+    xit 'should give me the weather information for that antipode of a given location' do
       get '/api/v1/antipode?location=hong kong'
 
       response = JSON.parse(@response.body, symbolize_names: true)

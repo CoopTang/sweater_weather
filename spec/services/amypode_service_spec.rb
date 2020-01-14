@@ -4,7 +4,7 @@ RSpec.describe AmypodeService do
   it 'Can get weather of a given latitude and longitude location', :vcr do
     location = GeoCoordinate.new({ lat: 22.3193039, lng: 114.1693611 })
 
-    response = AmycodeService.get_antipode(location)[:data][:attributes]
+    response = AmypodeService.get_antipode(location)[:data][:attributes]
 
     expect(response).to have_key(:lat)
     expect(response[:lat]).to eq(-22.3193039)
