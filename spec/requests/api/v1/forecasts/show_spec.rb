@@ -7,6 +7,7 @@ describe 'Forecast Show:', type: :request do
 
       response = JSON.parse(@response.body, symbolize_names: true)[:data][:attributes]
 
+      expect(response[:timezone]).to eq('America/Denver')
       expect(response[:currently]).to have_key(:time)
       expect(response[:currently]).to have_key(:summary)
       expect(response[:currently]).to have_key(:icon)
@@ -15,13 +16,13 @@ describe 'Forecast Show:', type: :request do
       expect(response[:currently]).to have_key(:humidity)
       expect(response[:currently]).to have_key(:visibility)
       expect(response[:currently]).to have_key(:uv_index)
-    
+      
       expect(response[:hourly].length).to eq(49)
       expect(response[:hourly].first).to have_key(:time)
       expect(response[:hourly].first).to have_key(:summary)
       expect(response[:hourly].first).to have_key(:icon)
       expect(response[:hourly].first).to have_key(:temperature)
-    
+      
       expect(response[:daily].length).to eq(8)
       expect(response[:daily].first).to have_key(:temperature_low)
       expect(response[:daily].first).to have_key(:temperature_high)
@@ -29,12 +30,13 @@ describe 'Forecast Show:', type: :request do
       expect(response[:daily].first).to have_key(:precip_type)
     end
   end
-
+  
   it 'I get a default response (where location=denver,co) if the location was invalid', :vcr do
     get '/api/v1/forecast?location=asdf'
-
+    
     response = JSON.parse(@response.body, symbolize_names: true)[:data][:attributes]
-
+    
+    expect(response[:timezone]).to eq('America/Denver')
     expect(response[:currently]).to have_key(:time)
     expect(response[:currently]).to have_key(:summary)
     expect(response[:currently]).to have_key(:icon)
@@ -43,13 +45,13 @@ describe 'Forecast Show:', type: :request do
     expect(response[:currently]).to have_key(:humidity)
     expect(response[:currently]).to have_key(:visibility)
     expect(response[:currently]).to have_key(:uv_index)
-  
+    
     expect(response[:hourly].length).to eq(49)
     expect(response[:hourly].first).to have_key(:time)
     expect(response[:hourly].first).to have_key(:summary)
     expect(response[:hourly].first).to have_key(:icon)
     expect(response[:hourly].first).to have_key(:temperature)
-  
+    
     expect(response[:daily].length).to eq(8)
     expect(response[:daily].first).to have_key(:temperature_low)
     expect(response[:daily].first).to have_key(:temperature_high)

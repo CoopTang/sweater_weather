@@ -42,6 +42,7 @@ Returns the current weather, the weather for the next 48 hours, and the weather 
     "type": "forecast",
     "attributes": {
       "id": 1,
+      "timezone": "America/Denver"
       "currently": {
         "time": 1579111681,
         "summary": "Clear",
