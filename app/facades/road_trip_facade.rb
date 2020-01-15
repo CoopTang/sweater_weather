@@ -18,7 +18,7 @@ class RoadTripFacade
 
   def get_road_trip_info(origin, destination)
     trip = DirectionService.get_directions(origin, destination)
-    travel_time_unix = Time.now.to_i + get_travel_time(trip)
+    travel_time_unix = current_time + get_travel_time(trip)
     dest_coordinate = get_destination_coordinate(trip)
 
     forecast = DarkSkyService.get_future_weather(dest_coordinate, travel_time_unix)
@@ -32,6 +32,10 @@ class RoadTripFacade
 
   def get_destination_coordinate(trip)
     GeoCoordinate.new(trip[:routes][0][:legs][0][:end_location])
+  end
+
+  def current_time
+    Time.now.to_i
   end
   
 end
