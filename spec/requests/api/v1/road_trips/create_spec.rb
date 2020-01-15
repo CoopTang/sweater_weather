@@ -10,6 +10,8 @@ describe 'RoadTrip create:', type: :request do
         api_key: 'asdf'
       )
 
+      allow_any_instance_of(RoadTripFacade).to receive(:current_time).and_return(1579057307)
+
       post '/api/v1/road_trip', params: {
         origin: "Denver,CO",
         destination: "Pueblo,CO",
@@ -37,6 +39,7 @@ describe 'RoadTrip create:', type: :request do
 
       response = JSON.parse(@response.body, symbolize_names: true)
 
+      expect(@response.status).to eq(401)
       expect(response[:message]).to eq('Unauthorized')
     end
 
@@ -56,6 +59,7 @@ describe 'RoadTrip create:', type: :request do
 
       response = JSON.parse(@response.body, symbolize_names: true)
 
+      expect(@response.status).to eq(401)
       expect(response[:message]).to eq('Unauthorized')
     end
   end
