@@ -3,6 +3,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resource :forecast, only: :show
       resource :road_trip, only: :create
+      resource :backgrounds, only: :show
       
       scope module: 'users' do
         resources :users, only: :create
