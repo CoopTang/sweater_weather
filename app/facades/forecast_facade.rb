@@ -2,10 +2,12 @@ class ForecastFacade
   attr_reader :currently,
               :hourly,
               :daily,
-              :id
+              :id,
+              :timezone
 
   def initialize(location)
     @id        = 1
+    @timezone  = ""
     @currently = {}
     @hourly    = []
     @daily     = []
@@ -25,6 +27,7 @@ class ForecastFacade
   end
 
   def parse_forecast(forecast)
+    @timezone = forecast[:timezone]
     create_currently(forecast[:currently])
     create_hourly(forecast[:hourly])
     create_daily(forecast[:daily])
