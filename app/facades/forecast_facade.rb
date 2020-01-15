@@ -20,8 +20,8 @@ class ForecastFacade
   private
 
   def get_geocode_coordinate(location)
-    geo_code = GeocoderService.get_geocoding(location)[:results][0][:geometry]
-    GeoCoordinate.new(geo_code[:location])
+    response = GeocoderService.get_geocoding(location)
+    has_results?(response) ? parse_geo_code(response) : default_geo_code
   end
 
   def parse_forecast(forecast)
@@ -44,5 +44,17 @@ class ForecastFacade
     daily_forecast[:data].each do |day_data|
       @daily.push(Daily.new(day_data))
     end
+  end
+
+  def has_results?(response)
+    !response[:results].empty?
+  end
+
+  def parse_geo_code(response)
+    GeoCoordinate.new(response[:results][0][:geometry][:location])
+  end
+
+  def default_geo_code
+    GeoCoordinate.new({ lat: 39.7392358, lng: -104.990251 })
   end
 end
