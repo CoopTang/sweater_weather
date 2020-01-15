@@ -28,5 +28,35 @@ describe 'RoadTrip create:', type: :request do
       expect(response[:arrival_forecast]).to have_key(:temperature)
       expect(response[:arrival_forecast]).to have_key(:summary)
     end
+
+    it 'I get an invalid response if there is no API key', :vcr do
+      post '/api/v1/road_trip', params: {
+        origin: "Denver,CO",
+        destination: "Pueblo,CO"
+      }
+
+      response = JSON.parse(@response.body, symbolize_names: true)
+
+      expect(response[:message]).to eq('Unauthorized')
+    end
+
+    it 'I get an invalid response if there the API key is incorrect', :vcr do
+      User.create(
+        email: 'bob@email.com',
+        password: 'password',
+        password_confirmation: 'password',
+        api_key: 'asdf'
+      )
+
+      post '/api/v1/road_trip', params: {
+        origin: "Denver,CO",
+        destination: "Pueblo,CO",
+        api_key: "wrong key"
+      }
+
+      response = JSON.parse(@response.body, symbolize_names: true)
+
+      expect(response[:message]).to eq('Unauthorized')
+    end
   end
 end
