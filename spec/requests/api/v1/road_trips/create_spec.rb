@@ -10,15 +10,11 @@ describe 'RoadTrip create:', type: :request do
         api_key: 'asdf'
       )
 
-      request_body = {
+      post '/api/v1/road_trip', params: {
         origin: "Denver,CO",
         destination: "Pueblo,CO",
-        api_key: "jgn983hy48thw9begh98h4539h4"
+        api_key: "asdf"
       }
-
-      post '/api/v1/road_trip', params: request_body.to_json
-
-      binding.pry
 
       response = JSON.parse(@response.body, symbolize_names: true)[:data][:attributes]
 
@@ -31,7 +27,6 @@ describe 'RoadTrip create:', type: :request do
 
       expect(response[:arrival_forecast]).to have_key(:temperature)
       expect(response[:arrival_forecast]).to have_key(:summary)
-
     end
   end
 end
