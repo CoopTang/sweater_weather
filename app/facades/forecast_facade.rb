@@ -14,7 +14,7 @@ class ForecastFacade
 
   def get_forecast(location)
     coordinate = get_geocode_coordinate(location)
-    parse_forecast(DarkSkyService.get_weather(coordinate))
+    parse_forecast(DarkSkyService.get_current_weather(coordinate))
   end
 
   private
